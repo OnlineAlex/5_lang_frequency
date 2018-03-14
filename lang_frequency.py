@@ -50,4 +50,3 @@ if __name__ == '__main__':
     frequent_stat = get_most_frequent_words(text_file)
     for place in range(1, 11):
         print('{0}: "{1}" — {2}'.format(place, frequent_stat[-place][0], frequent_stat[-place][1]))
-

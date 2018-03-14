@@ -23,8 +23,6 @@ $ python lang_frequency.py
 
 ```
 
-
-
 # Требования
 
 Совестимые OC:
