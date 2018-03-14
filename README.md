@@ -34,7 +34,7 @@ $ python lang_frequency.py
 
 # Как запустить
 
-#####Запуск на Linux и Windows 
+##### Запуск на Linux и Windows 
 1. Запустите модуль `lang_frequency.py` 
 2. Укажите путь к текстовому файлу
 
