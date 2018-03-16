@@ -24,7 +24,8 @@ def get_most_frequent_words(text):
     for word in list_all_words:
         words_stat[word] += 1
 
-    return words_stat.most_common(10)
+    top_10 = 10
+    return words_stat.most_common(top_10)
 
 
 def print_frequent_words(top_freq_words):
