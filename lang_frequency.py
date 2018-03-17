@@ -19,8 +19,9 @@ def get_lower_tuple(text):
     return tuple_words
 
 
-def get_most_frequent_words(words, num_words):
+def get_most_frequent_words(words):
     words_stat = collections.Counter(words)
+    num_words = 10
     return words_stat.most_common(num_words)
 
 
@@ -43,5 +44,6 @@ if __name__ == '__main__':
     else:
         clean_text = remove_punctuation(text_data)
         text_words = get_lower_tuple(clean_text)
-        frequent_words = get_most_frequent_words(text_words, 10)
+        
+        frequent_words = get_most_frequent_words(text_words)
         print_frequent_words(frequent_words)
