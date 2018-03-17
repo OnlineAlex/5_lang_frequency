@@ -8,25 +8,25 @@ def load_data(filepath):
         return work_file.read()
 
 
-def remove_punctuation(work_text):
-    clean_data = re.sub("\W", ' ', work_text)
-    return clean_data
-
-
-def get_lower_tuple(text):
-    text_lower = text.lower()
-    tuple_words = text_lower.split()
+def get_words_text(work_text):
+    clean_text = re.sub('\W', ' ', work_text)
+    text_lower = clean_text.lower()
+    tuple_words = tuple(text_lower.split())
     return tuple_words
 
 
-def get_most_frequent_words(words, num_words):
+def get_most_frequent_words(words):
     words_stat = collections.Counter(words)
+    num_words = 10
     return words_stat.most_common(num_words)
 
 
 def print_frequent_words(top_freq_words):
-    for place, word in enumerate(top_freq_words):
-        print('{0:>2}: "{1}"'.format(place, word[0]))
+    for index, (word, count) in enumerate(top_freq_words):
+        print('{0:>2}: "{1}" — {2}'.format(
+            index+1,
+            word, count
+        ))
 
 
 if __name__ == '__main__':
@@ -41,7 +41,6 @@ if __name__ == '__main__':
     except ValueError:
         print('Ошибка. Файл должен быть в формате .txt')
     else:
-        clean_text = remove_punctuation(text_data)
-        text_words = get_lower_tuple(clean_text)
-        frequent_words = get_most_frequent_words(text_words, 10)
+        words_tuple = get_words_text(text_data)
+        frequent_words = get_most_frequent_words(words_tuple)
         print_frequent_words(frequent_words)
