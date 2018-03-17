@@ -1,5 +1,4 @@
 import sys
-import string
 import re
 import collections
 
@@ -10,35 +9,30 @@ def load_data(filepath):
 
 
 def remove_punctuation(work_text):
-    work_text = re.sub("\s*\n|\xa0|—\s*", ' ', work_text)
-    table = work_text.maketrans("", "", string.punctuation)
-    clean_text = work_text.translate(table)
-    return clean_text
+    clean_data = re.sub("\W", ' ', work_text)
+    return clean_data
 
 
-def get_most_frequent_words(text):
-    text = text.lower()
-    clean_text = remove_punctuation(text)
-    list_all_words = clean_text.split()
-    words_stat = collections.Counter()
-    for word in list_all_words:
-        words_stat[word] += 1
+def get_lower_tuple(text):
+    text_lower = text.lower()
+    tuple_words = text_lower.split()
+    return tuple_words
 
-    top_10 = 10
-    return words_stat.most_common(top_10)
+
+def get_most_frequent_words(words, num_words):
+    words_stat = collections.Counter(words)
+    return words_stat.most_common(num_words)
 
 
 def print_frequent_words(top_freq_words):
-    place = 1
-    for word, frequent in top_freq_words:
-        print('{0:>2}: "{1}" — {2}'.format(place, word, frequent))
-        place += 1
+    for place, word in enumerate(top_freq_words):
+        print('{0:>2}: "{1}"'.format(place, word[0]))
 
 
 if __name__ == '__main__':
     try:
         link_file = sys.argv[1]
-        text_file = load_data(link_file)
+        text_data = load_data(link_file)
     except IndexError:
         print('Ошибка! Вы не указали путь к файлу.')
         print('Сработает, если написать "python lang_frequency.py <путь к файлу>"')
@@ -47,5 +41,7 @@ if __name__ == '__main__':
     except ValueError:
         print('Ошибка. Файл должен быть в формате .txt')
     else:
-        frequent_stat = get_most_frequent_words(text_file)
-        print_frequent_words(frequent_stat)
+        clean_text = remove_punctuation(text_data)
+        text_words = get_lower_tuple(clean_text)
+        frequent_words = get_most_frequent_words(text_words, 10)
+        print_frequent_words(frequent_words)
